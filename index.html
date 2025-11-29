@@ -1,101 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sakura Style Page</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Harpita</title>
+
+<style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #ffb7c5, #ff4d6d);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
+        margin: 0;
+        padding: 0;
+        background: #ffefef;
+        font-family: "Poppins", sans-serif;
+        color: #600000;
+        overflow-x: hidden;
     }
 
+    /* Sakura Background */
+    .sakura {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .petal {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: #ff6b81;
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Card */
     .card {
-      width: 95%;
-      max-width: 450px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(255, 0, 100, 0.4);
-      margin-top: 20px;
+        z-index: 5;
+        margin: 0 auto;
+        margin-top: 40px;
+        width: 90%;
+        max-width: 420px;
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.15);
+        border: 2px solid #cc0000;
+        animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 10px;
+        text-align: center;
+        font-size: 32px;
+        color: #b10000;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #ff4b6e;
+        font-size: 22px;
+        margin-top: -8px;
     }
 
     p {
-      font-size: 1.1rem;
-      text-align: center;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #660000;
+        margin-top: 15px;
     }
 
-    .btn {
-      width: 100%;
-      background: #ff4d6d;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      margin-top: 15px;
-      cursor: pointer;
-      transition: 0.3s;
+    /* Buttons */
+    .btn-area {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
-    .btn:hover {
-      background: #ff879c;
+    button {
+        padding: 13px 18px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        color: white;
+        background: linear-gradient(135deg, #b40000, #ff4d6d);
+        box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+        transition: 0.2s;
     }
 
-    .hidden-box {
-      display: none;
-      margin-top: 15px;
-      background: rgba(255,255,255,0.25);
-      padding: 15px;
-      border-radius: 15px;
-      text-align: center;
+    button:active {
+        transform: scale(0.95);
     }
 
-  </style>
+    .output-box {
+        margin-top: 20px;
+        padding: 12px;
+        background: #ffe5ea;
+        border-left: 4px solid #ff4d6d;
+        font-weight: 600;
+        border-radius: 8px;
+        display: none;
+    }
+
+</style>
 </head>
 <body>
 
-  <h1>Happy Birthday!</h1>
-  <p>Wishing you joy, love, and the brightest year ahead.</p>
+<div class="sakura" id="sakura"></div>
 
-  <div class="card">
-    <button class="btn" onclick="toggleBox()">Click Me 🎀</button>
-    <div id="box" class="hidden-box">
-      💖 Surprise! You're amazing and deserve all the happiness in the world 🌸
+<div class="card">
+    <h1>Happy 18th Birthday</h1>
+    <h2>🎉 Dear Harpita 🎉</h2>
+
+    <p>
+        Aaj ka din tumhare liye bohot special hai, and honestly, tum mere liye bhi utni hi special ho.
+        I really love you. Tum meri life ka ek important hissa ho, and I’m genuinely grateful for every 
+        moment I’ve shared with you. jis tarah tum apni life handle karti ho i love it. sach bol raha hoon… 
+        you matter to me. You’re special to me in a way jise words mein explain karna mushkil hota hai. 
+        I just want this new year of your life to give you peace, happiness, and everything good you deserve. 
+        No pressure from my side, no expectations — bas dil se dua karta hoon ki tum hamesha khush raho. 
+        And haan… I love you, and I truly mean it.
+    </p>
+
+    <div class="btn-area">
+        <button onclick="showMsg('You make the world brighter ❤️')">🌸 Click Me</button>
+        <button onclick="showMsg('You’re amazing, Harpita ✨')">💗 Another One</button>
+        <button onclick="showMsg('I hope today becomes unforgettable for you 💫')">🎀 Surprise</button>
     </div>
-  </div>
 
-  <div class="card">
-    <button class="btn" onclick="changeColor()">Change Theme 🌸</button>
-  </div>
+    <div class="output-box" id="msgBox"></div>
+</div>
 
-  <script>
-    function toggleBox() {
-      const box = document.getElementById('box');
-      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+<script>
+    // Sakura Petals
+    function createPetals() {
+        const sakura = document.getElementById("sakura");
+        for (let i = 0; i < 30; i++) {
+            let petal = document.createElement("div");
+            petal.classList.add("petal");
+            petal.style.left = Math.random() * 100 + "vw";
+            petal.style.animationDuration = (4 + Math.random() * 4) + "s";
+            petal.style.opacity = Math.random() + 0.2;
+            sakura.appendChild(petal);
+        }
     }
+    createPetals();
 
-    function changeColor() {
-      const body = document.body;
-      body.style.background =
-        body.style.background.includes('#ffb7c5')
-          ? 'linear-gradient(to bottom right, #ff4d6d, #ffb7c5)'
-          : 'linear-gradient(to bottom right, #ffb7c5, #ff4d6d)';
+    // Button Messages
+    function showMsg(txt) {
+        const box = document.getElementById("msgBox");
+        box.innerText = txt;
+        box.style.display = "block";
     }
-  </script>
+</script>
 
 </body>
 </html>
