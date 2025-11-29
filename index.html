@@ -1,174 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Harpita</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: #ffefef;
-        font-family: "Poppins", sans-serif;
-        color: #600000;
-        overflow-x: hidden;
-    }
-
-    /* Sakura Background */
-    .sakura {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 1;
-    }
-
-    .petal {
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        background: #ff6b81;
-        border-radius: 50%;
-        opacity: 0.8;
-        animation: fall linear infinite;
-    }
-
+  <style>
+    /* Petals falling */
     @keyframes fall {
-        0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-        100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* Card */
-    .card {
-        z-index: 5;
-        margin: 0 auto;
-        margin-top: 40px;
-        width: 90%;
-        max-width: 420px;
-        background: white;
-        border-radius: 20px;
-        padding: 25px;
-        box-shadow: 0 0 20px rgba(255, 0, 0, 0.15);
-        border: 2px solid #cc0000;
-        animation: fadeIn 1.2s ease;
+    /* Firefly glow */
+    @keyframes firefly {
+      0%,100% { transform: translate(0,0) scale(1); opacity: 0.3;}
+      50% { transform: translate(10px,-15px) scale(1.4); opacity: 1; }
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
+    /* Lantern float */
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-120vh); opacity: 0; }
     }
 
-    h1 {
-        text-align: center;
-        font-size: 32px;
-        color: #b10000;
-        margin-bottom: 10px;
+    /* Sparkle twinkles */
+    @keyframes twinkle {
+      0%,100% { opacity: 0.2; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.3); }
     }
 
-    h2 {
-        text-align: center;
-        color: #ff4b6e;
-        font-size: 22px;
-        margin-top: -8px;
+    /* Watercolor branches */
+    .branch {
+      position: absolute;
+      width: 200px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 40%, rgba(255,180,200,0.45), transparent 70%);
+      filter: blur(18px);
+      opacity: 0.6;
     }
-
-    p {
-        font-size: 16px;
-        line-height: 1.5;
-        color: #660000;
-        margin-top: 15px;
-    }
-
-    /* Buttons */
-    .btn-area {
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    button {
-        padding: 13px 18px;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        color: white;
-        background: linear-gradient(135deg, #b40000, #ff4d6d);
-        box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
-        transition: 0.2s;
-    }
-
-    button:active {
-        transform: scale(0.95);
-    }
-
-    .output-box {
-        margin-top: 20px;
-        padding: 12px;
-        background: #ffe5ea;
-        border-left: 4px solid #ff4d6d;
-        font-weight: 600;
-        border-radius: 8px;
-        display: none;
-    }
-
-</style>
+  </style>
 </head>
-<body>
 
-<div class="sakura" id="sakura"></div>
+<body class="bg-gradient-to-b from-[#220020] to-[#0b0312] min-h-screen overflow-hidden relative">
 
-<div class="card">
-    <h1>Happy 18th Birthday</h1>
-    <h2>🎉 Dear Harpita 🎉</h2>
+  <!-- Sakura watercolor branches -->
+  <div class="branch" style="top: 20px; left: 20px;"></div>
+  <div class="branch" style="top: 100px; right: 30px;"></div>
+  <div class="branch" style="bottom: 60px; left: 40px;"></div>
 
-    <p>
-        Aaj ka din tumhare liye bohot special hai, and honestly, tum mere liye bhi utni hi special ho.
-        I really love you. Tum meri life ka ek important hissa ho, and I’m genuinely grateful for every 
-        moment I’ve shared with you. jis tarah tum apni life handle karti ho i love it. sach bol raha hoon… 
-        you matter to me. You’re special to me in a way jise words mein explain karna mushkil hota hai. 
-        I just want this new year of your life to give you peace, happiness, and everything good you deserve. 
-        No pressure from my side, no expectations — bas dil se dua karta hoon ki tum hamesha khush raho. 
-        And haan… I love you, and I truly mean it.
+  <!-- Tiny sparkles -->
+  <div id="sparkles"></div>
+
+  <!-- HEADING -->
+  <h1 class="text-center text-pink-300 drop-shadow-lg text-3xl font-semibold pt-8 tracking-wide">
+    Happy Birthday ❤️🌸
+  </h1>
+
+  <!-- TEXT BLOCK -->
+  <div id="messageBox" class="relative z-10 text-center px-6 pt-10">
+    <p id="mainText" class="text-lg leading-relaxed text-pink-200 font-medium transition-opacity duration-500">
+      Aaj ka din tumhare liye bohot special hai,  
+      and honestly, tum mere liye bhi utni hi special ho.  
+      I really love you.  
+      Tum meri life ka ek important hissa ho,  
+      and I’m genuinely grateful for every moment  
+      I’ve shared with you.  
+      Jis tarah tum apni life handle karti ho…  
+      you matter to me.  
+      I want this year to give you peace,  
+      happiness, and everything beautiful.  
+      No pressure… bas dua karta hoon ki  
+      tum hamesha khush raho.  
+      And haan… I love you. Truly.
     </p>
+  </div>
 
-    <div class="btn-area">
-        <button onclick="showMsg('You make the world brighter ❤️')">🌸 Click Me</button>
-        <button onclick="showMsg('You’re amazing, Harpita ✨')">💗 Another One</button>
-        <button onclick="showMsg('I hope today becomes unforgettable for you 💫')">🎀 Surprise</button>
-    </div>
+  <!-- BUTTONS -->
+  <div class="flex flex-wrap justify-center gap-3 mt-10 relative z-10">
+    <button onclick="triggerMagic(1)" class="px-5 py-2 bg-pink-500 text-white rounded-lg shadow-lg text-sm">
+      Sakura Burst 🌸
+    </button>
 
-    <div class="output-box" id="msgBox"></div>
-</div>
+    <button onclick="triggerMagic(2)" class="px-5 py-2 bg-amber-500 text-white rounded-lg shadow-lg text-sm">
+      Lantern Magic 🏮
+    </button>
 
-<script>
-    // Sakura Petals
-    function createPetals() {
-        const sakura = document.getElementById("sakura");
-        for (let i = 0; i < 30; i++) {
-            let petal = document.createElement("div");
-            petal.classList.add("petal");
-            petal.style.left = Math.random() * 100 + "vw";
-            petal.style.animationDuration = (4 + Math.random() * 4) + "s";
-            petal.style.opacity = Math.random() + 0.2;
-            sakura.appendChild(petal);
-        }
+    <button onclick="triggerMagic(3)" class="px-5 py-2 bg-purple-600 text-white rounded-lg shadow-lg text-sm">
+      Fireflies ✨
+    </button>
+  </div>
+
+  <script>
+    /* 💬 Text options */
+    const messages = [
+      `Aaj ka din tumhare liye bohot special hai,  
+      and honestly, tum mere liye bhi utni hi special ho.  
+      I really love you.  
+      Tum meri life ka ek important hissa ho,  
+      and I’m genuinely grateful for every moment  
+      I’ve shared with you.  
+      Jis tarah tum apni life handle karti ho…  
+      you matter to me.  
+      I want this year to give you peace,  
+      happiness, and everything beautiful.  
+      No pressure… bas dua karta hoon ki  
+      tum hamesha khush raho.  
+      And haan… I love you. Truly.`,
+
+      `Tum meri life mein itni pyaari roshni ho…  
+      Kabhi kabhi lagta hai tumhari presence hi ek gift hai.  
+      I love you, truly.`,
+
+      `Har baat tumse beautiful lagti hai…  
+      Tumhari smile, tumhari energy…  
+      Bas tum ho, aur sab perfect lagta hai.`,
+
+      `Tumhare bina kuch adhoora sa lagta hai…  
+      But with you, everything feels soft, warm, magical.  
+      I love you, baby.`
+    ];
+
+    /* 🌟 Trigger animation + text change */
+    function triggerMagic(type) {
+      changeText();
+      if (type === 1) bigSakura();
+      if (type === 2) lanternStorm();
+      if (type === 3) fireflyMagic();
     }
-    createPetals();
 
-    // Button Messages
-    function showMsg(txt) {
-        const box = document.getElementById("msgBox");
-        box.innerText = txt;
-        box.style.display = "block";
+    /* ✨ Smooth text fade-out change fade-in */
+    function changeText() {
+      const txt = document.getElementById("mainText");
+      txt.style.opacity = 0;
+
+      setTimeout(() => {
+        txt.innerHTML = messages[Math.floor(Math.random()*messages.length)];
+        txt.style.opacity = 1;
+      }, 500);
     }
-</script>
+
+    /* 🌸 Sakura */
+    function bigSakura() {
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement("div");
+        p.style.position = "fixed";
+        p.style.width = "12px";
+        p.style.height = "16px";
+        p.style.background = "pink";
+        p.style.borderRadius = "70% 30% 70% 30%";
+        p.style.left = Math.random() * innerWidth + "px";
+        p.style.top = "-20px";
+        p.style.opacity = 0.9;
+        p.style.animation = `fall ${3 + Math.random()*3}s linear`;
+        document.body.appendChild(p);
+        setTimeout(()=>p.remove(),6000);
+      }
+    }
+
+    /* 🏮 Lanterns */
+    function lanternStorm() {
+      for (let i = 0; i < 15; i++) {
+        const L = document.createElement("div");
+        L.style.position = "fixed";
+        L.style.width = "20px";
+        L.style.height = "28px";
+        L.style.borderRadius = "5px";
+        L.style.left = Math.random()*innerWidth+"px";
+        L.style.top = "110vh";
+        L.style.background = "radial-gradient(circle, #ffd9a3, #b45b00)";
+        L.style.animation = `floatUp ${5+Math.random()*2}s ease-out`;
+        document.body.appendChild(L);
+        setTimeout(()=>L.remove(),7000);
+      }
+    }
+
+    /* ✨ Fireflies */
+    function fireflyMagic() {
+      for (let i = 0; i < 25; i++) {
+        const f = document.createElement("div");
+        f.style.position = "fixed";
+        f.style.width = "7px";
+        f.style.height = "7px";
+        f.style.borderRadius = "50%";
+        f.style.background = "radial-gradient(circle, #fff79a, transparent)";
+        f.style.left = Math.random()*innerWidth+"px";
+        f.style.top = Math.random()*innerHeight+"px";
+        f.style.animation = `firefly ${2+Math.random()*2}s infinite`;
+        document.body.appendChild(f);
+        setTimeout(()=>f.remove(),5000);
+      }
+    }
+
+    /* ✨ Constant sparkles */
+    setInterval(()=>{
+      const s = document.createElement("div");
+      s.style.position="fixed";
+      s.style.width="4px";
+      s.style.height="4px";
+      s.style.borderRadius="50%";
+      s.style.background="white";
+      s.style.opacity="0.8";
+      s.style.left=Math.random()*innerWidth+"px";
+      s.style.top=Math.random()*innerHeight+"px";
+      s.style.animation="twinkle 2s infinite";
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(),4000);
+    }, 300);
+  </script>
 
 </body>
 </html>
