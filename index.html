@@ -40,6 +40,19 @@
       filter: blur(18px);
       opacity: 0.6;
     }
+
+    /* NEW — HARPITA floating & glowing */
+    @keyframes floatSoft {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes shimmer {
+      0% { filter: drop-shadow(0 0 4px #ff7abf); }
+      50% { filter: drop-shadow(0 0 10px #ff9bd6); }
+      100% { filter: drop-shadow(0 0 4px #ff7abf); }
+    }
   </style>
 </head>
 
@@ -53,13 +66,18 @@
   <!-- Tiny sparkles -->
   <div id="sparkles"></div>
 
-  <!-- HEADING -->
-  <h1 class="text-center text-pink-300 drop-shadow-lg text-3xl font-semibold pt-8 tracking-wide">
-    Happy Birthday ❤️🌸
+  <!-- ✨ UPDATED HEADING WITH “HARPITA” ✨ -->
+  <h1 class="text-center text-pink-300 drop-shadow-lg text-3xl font-semibold pt-6 tracking-wide">
+    Happy Birthday,
   </h1>
 
+  <h2 class="text-center text-pink-400 font-extrabold text-4xl mt-1 tracking-widest"
+      style="animation: floatSoft 3s ease-in-out infinite, shimmer 2.8s ease-in-out infinite;">
+    H A R P I T A
+  </h2>
+
   <!-- TEXT BLOCK -->
-  <div id="messageBox" class="relative z-10 text-center px-6 pt-10">
+  <div id="messageBox" class="relative z-10 text-center px-6 pt-8">
     <p id="mainText" class="text-lg leading-relaxed text-pink-200 font-medium transition-opacity duration-500">
       Aaj ka din tumhare liye bohot special hai,  
       and honestly, tum mere liye bhi utni hi special ho.  
